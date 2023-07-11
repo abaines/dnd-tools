@@ -11,7 +11,14 @@ async function process() {
 
     const grey = image.grey();
 
-    document.getElementById('grey').src = grey.toDataURL();
+    console.log(IJS);
+    console.log(IJS.Kernel);
+    console.log(grey.getHistograms());
+    console.log(grey)
+
+    const padded = grey.pad({size:[500,0],algorithm:'set',color:[128]})
+
+    document.getElementById('grey').src = padded.toDataURL();
 
     document.body.style.backgroundColor = "orange";
 }
