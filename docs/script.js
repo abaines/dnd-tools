@@ -9,6 +9,11 @@ async function process() {
     const original = document.getElementById('original').src;
     const image = await IJS.Image.load(original);
 
+    const height = image.height;
+    const width = image.width;
+
+    console.log(width, height);
+
     const flipX = image.clone().flipX();
 
     const padded = image.pad({size:[500,0],algorithm:'set',color:[128,128,128,128]})
