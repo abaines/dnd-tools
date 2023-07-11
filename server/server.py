@@ -23,11 +23,9 @@ doc = abspath("../docs/")
 # expected files
 indexHtml = join(doc,"index.html")
 scriptJs = join(doc,"script.js")
-wordsOut = join(doc,"words.out")
 
 print(indexHtml,exists(indexHtml))
 print(scriptJs,exists(scriptJs))
-print(wordsOut,exists(wordsOut))
 
 
 # http request handler
@@ -37,7 +35,7 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
       
 
 # verify files before starting server
-if exists(indexHtml) and exists(scriptJs) and exists(wordsOut):
+if exists(indexHtml) and exists(scriptJs):
 
    server_address = ("",ServerPort)
    
