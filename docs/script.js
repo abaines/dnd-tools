@@ -22,7 +22,13 @@ async function process() {
 
     const insert = padded.insert(flipX).insert(flipX,{x:1000,y:0})
 
-    document.getElementById('grey').src = insert.toDataURL();
+    const flipY = insert.clone().flipY();
+
+    const paddedUp = insert.pad({size:[0,400],algorithm:'set',color:[128,128,128,128]})
+
+    const insertUp = paddedUp.insert(flipY).insert(flipY,{x:0,y:800})
+
+    document.getElementById('grey').src = insertUp.toDataURL();
 
     document.body.style.backgroundColor = "orange";
 }
