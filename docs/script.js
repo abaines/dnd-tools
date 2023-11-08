@@ -33,3 +33,7 @@ async function process() {
 
 process();
 
+async function upload()
+{
+    alert("Got it!");
+}
