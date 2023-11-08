@@ -4,10 +4,11 @@
 
 document.body.style.backgroundColor = "red";
 
+const original = document.getElementById('original');
 
 async function process() {
-    const original = document.getElementById('original').src;
-    const image = await IJS.Image.load(original);
+    const originalSrc = original.src;
+    const image = await IJS.Image.load(originalSrc);
 
     const height = image.height;
     const width = image.width;
@@ -33,7 +34,16 @@ async function process() {
 
 process();
 
-async function upload()
-{
-    alert("Got it!");
+const upload_input = document.getElementById('upload-input');
+
+async function upload() {
+    const upload_input = document.getElementById('upload-input');
+    const file0 = this.files[0];
+    const objectUrlFile0 = window.URL.createObjectURL(file0);
+
+    original.src = objectUrlFile0;
+
+    console.log(upload_input, upload_input.value, this.files[0]);
 }
+
+upload_input.onchange = upload;
