@@ -6,6 +6,18 @@ document.body.style.backgroundColor = "red";
 
 const original = document.getElementById('original');
 
+function getColorArray(image) {
+    const channels = image.channels
+    switch (channels) {
+        case 3:
+            return [128, 128, 128];
+        case 4:
+            return [128, 128, 128, 128];
+        default:
+            throw new Error('Unexpected number of image channels!');
+    }
+}
+
 async function process() {
     try {
         const originalSrc = original.src;
@@ -14,19 +26,21 @@ async function process() {
         const height = image.height;
         const width = image.width;
 
-        console.log(width, height);
+        console.log(width, height, image.channels);
+
+        const colorArray = getColorArray(image);
 
         const flipX = image.clone().flipX();
 
-        const padded = image.pad({ size: [width, 0], algorithm: 'set', color: [128, 128, 128, 128] })
+        const padded = image.pad({ size: [width, 0], algorithm: 'set', color: colorArray });
 
         const insert = padded.insert(flipX).insert(flipX, { x: 2 * width, y: 0 })
 
         const flipY = insert.clone().flipY();
 
-        const paddedUp = insert.pad({ size: [0, height], algorithm: 'set', color: [128, 128, 128, 128] })
+        const paddedUp = insert.pad({ size: [0, height], algorithm: 'set', color: colorArray });
 
-        const insertUp = paddedUp.insert(flipY).insert(flipY, { x: 0, y: 2 * height })
+        const insertUp = paddedUp.insert(flipY).insert(flipY, { x: 0, y: 2 * height });
 
         document.getElementById('result').src = insertUp.toDataURL();
 
